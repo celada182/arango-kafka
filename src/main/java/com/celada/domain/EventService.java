@@ -10,7 +10,7 @@ public interface EventService {
 
   void create(Person person) throws ExecutionException, InterruptedException, JsonProcessingException;
 
-  Person read(String id) throws ExecutionException, InterruptedException, IOException;
+  Person read(String key) throws ExecutionException, InterruptedException, IOException;
 
   void update(Person model);
 

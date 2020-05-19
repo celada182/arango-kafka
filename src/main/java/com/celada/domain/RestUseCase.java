@@ -18,8 +18,8 @@ public class RestUseCase {
     eventService.create(person);
   }
 
-  public Person read(String name) throws ExecutionException, InterruptedException, IOException {
-    return eventService.read(name);
+  public Person read(String key) throws ExecutionException, InterruptedException, IOException {
+    return eventService.read(key);
   }
 
 }

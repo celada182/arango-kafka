@@ -40,8 +40,8 @@ public class KafkaService implements EventService {
   }
 
   @Override
-  public Person read(String name) throws ExecutionException, InterruptedException, IOException {
-    Person person = Person.builder().name(name).build();
+  public Person read(String key) throws ExecutionException, InterruptedException, IOException {
+    Person person = Person.builder().key(key).build();
     Event request = Event.builder()
         .type(EventType.READ)
         .body(objectMapper.writeValueAsString(person))

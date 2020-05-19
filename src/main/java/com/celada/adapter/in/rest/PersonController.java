@@ -29,7 +29,7 @@ public class PersonController {
   @PostMapping(value = "/person",
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Void> createModel(@RequestBody Person person) {
+  public ResponseEntity<Void> create(@RequestBody Person person) {
     try {
       restUseCase.create(person);
       return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -40,12 +40,12 @@ public class PersonController {
   }
 
   @ResponseBody
-  @GetMapping(value = "/person/{name}",
+  @GetMapping(value = "/person/{key}",
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Person> readModel(@PathVariable String name) {
+  public ResponseEntity<Person> read(@PathVariable String key) {
     try {
-      Person result = restUseCase.read(name);
+      Person result = restUseCase.read(key);
       return ResponseEntity.ok(result);
     } catch (ExecutionException | InterruptedException | IOException e) {
       log.error(e.getMessage());

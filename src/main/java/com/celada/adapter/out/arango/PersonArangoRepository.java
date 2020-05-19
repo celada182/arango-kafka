@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface PersonArangoRepository extends ArangoRepository<PersonEntity> {
 
-  Optional<PersonEntity> findByName(String name);
+  Optional<PersonEntity> findByKey(String key);
 }

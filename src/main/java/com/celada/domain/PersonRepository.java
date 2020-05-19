@@ -7,7 +7,7 @@ public interface PersonRepository {
 
   void create(Person person);
 
-  Person read(String id) throws PersonException;
+  Person read(String key) throws PersonException;
 
   void update(Person person);
 

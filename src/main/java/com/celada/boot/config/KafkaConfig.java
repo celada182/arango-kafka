@@ -52,7 +52,7 @@ public class KafkaConfig {
   public ObjectMapper objectMapper() {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.registerModule(new JavaTimeModule());
-    objectMapper.setSerializationInclusion(Include.NON_NULL);
+    objectMapper.setSerializationInclusion(Include.NON_EMPTY);
     return objectMapper;
   }
 

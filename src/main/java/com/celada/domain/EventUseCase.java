@@ -18,9 +18,9 @@ public class EventUseCase {
     personRepository.create(person);
   }
 
-  public Person read(String id) throws PersonException {
-    log.info("Reading model: {}", id);
-    return personRepository.read(id);
+  public Person read(String key) throws PersonException {
+    log.info("Reading model: {}", key);
+    return personRepository.read(key);
   }
 
 }

@@ -35,7 +35,7 @@ public class KafkaConsumer {
 
   private void read(Event event) throws IOException, PersonException {
     Person request = eventMapper.execute(event.getBody());
-    Person person = eventUseCase.read(request.getName());
+    Person person = eventUseCase.read(request.getKey());
     event.setBody(eventMapper.execute(person));
     log.info("Sending event: {}", event);
   }

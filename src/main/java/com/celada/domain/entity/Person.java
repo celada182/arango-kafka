@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Person {
 
+  private String key;
   private String name;
   private List<String> friends;
   private List<String> roommates;

@@ -23,11 +23,11 @@ public class PersonRepositoryImpl implements PersonRepository {
   }
 
   @Override
-  public Person read(String name) throws PersonException {
-    Optional<PersonEntity> entity = repository.findByName(name);
+  public Person read(String key) throws PersonException {
+    Optional<PersonEntity> entity = repository.findByKey(key);
     PersonEntity person = entity
         .orElseThrow(() -> new PersonException("Person not found"));
-    log.info("Read person: {}", name);
+    log.info("Read person: {}", entity);
     return PersonMapper.execute(person);
   }
 

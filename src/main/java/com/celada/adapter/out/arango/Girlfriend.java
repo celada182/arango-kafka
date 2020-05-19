@@ -3,15 +3,17 @@ package com.celada.adapter.out.arango;
 import com.arangodb.springframework.annotation.Edge;
 import com.arangodb.springframework.annotation.From;
 import com.arangodb.springframework.annotation.To;
+import lombok.Builder;
+import lombok.Data;
 
 @Edge
-public class Relation {
+@Data
+@Builder
+public class Girlfriend {
 
   @From
-  private Person child;
+  private Person from;
   @To
-  private Person parent;
-
-  private Type type;
+  private Person to;
 
 }

@@ -1,9 +1,11 @@
 package com.celada.boot.config;
 
+import com.celada.adapter.in.kafka.Event;
 import com.celada.adapter.in.kafka.EventMapper;
 import com.celada.adapter.in.kafka.KafkaConsumer;
-import com.celada.domain.PersonUseCase;
-import com.celada.kafka.Event;
+import com.celada.adapter.out.kafka.KafkaService;
+import com.celada.domain.EventService;
+import com.celada.domain.EventUseCase;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -37,6 +39,9 @@ public class KafkaConfig {
   @Value("${kafka.bootstrap-servers}")
   private String bootstrapServers;
 
+  @Value("${kafka.topic.request}")
+  private String requestTopic;
+
   @Value("${kafka.topic.response}")
   private String responseTopic;
 
@@ -49,6 +54,14 @@ public class KafkaConfig {
     objectMapper.registerModule(new JavaTimeModule());
     objectMapper.setSerializationInclusion(Include.NON_NULL);
     return objectMapper;
+  }
+
+  @Bean
+  public EventService eventService(
+      ReplyingKafkaTemplate<String, Event, Event> replyingKafkaTemplate,
+      ObjectMapper objectMapper
+  ) {
+    return new KafkaService(replyingKafkaTemplate, objectMapper, requestTopic, responseTopic);
   }
 
   @Bean
@@ -100,9 +113,7 @@ public class KafkaConfig {
 
   @Bean
   public ConsumerFactory<String, Event> consumerFactory() {
-    JsonDeserializer<Event> deserializer = new JsonDeserializer<>(Event.class, new ObjectMapper());
-    deserializer.addTrustedPackages("*");
-    return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), deserializer);
+    return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(), new JsonDeserializer<>(Event.class));
   }
 
   @Bean
@@ -114,8 +125,8 @@ public class KafkaConfig {
   }
 
   @Bean
-  public KafkaConsumer replyingKafkaConsumer(PersonUseCase personUseCase, EventMapper eventMapper) {
-    return new KafkaConsumer(personUseCase, eventMapper);
+  public KafkaConsumer replyingKafkaConsumer(EventUseCase eventUseCase, EventMapper eventMapper) {
+    return new KafkaConsumer(eventUseCase, eventMapper);
   }
 
 }

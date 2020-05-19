@@ -26,7 +26,7 @@ public class PersonRepositoryImpl implements PersonRepository {
     Optional<PersonEntity> entity = repository.findByName(name);
     PersonEntity person = entity
         .orElseThrow(() -> new PersonException("Person not found"));
-    log.info("Read person: {}", person);
+    log.info("Read person: {}", name);
     return PersonMapper.execute(person);
   }
 

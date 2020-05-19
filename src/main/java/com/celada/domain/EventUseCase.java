@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 @Slf4j
-public class PersonUseCase {
+public class EventUseCase {
 
   private final PersonRepository personRepository;
 

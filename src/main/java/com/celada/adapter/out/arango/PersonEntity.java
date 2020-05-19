@@ -1,5 +1,6 @@
 package com.celada.adapter.out.arango;
 
+import com.arangodb.springframework.annotation.Document;
 import com.arangodb.springframework.annotation.Key;
 import com.arangodb.springframework.annotation.Relations;
 import lombok.Builder;
@@ -9,6 +10,7 @@ import java.util.Collection;
 
 @Data
 @Builder
+@Document("person")
 public class PersonEntity {
 
   @Key

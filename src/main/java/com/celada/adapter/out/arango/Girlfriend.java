@@ -12,8 +12,8 @@ import lombok.Data;
 public class Girlfriend {
 
   @From
-  private Person from;
+  private PersonEntity from;
   @To
-  private Person to;
+  private PersonEntity to;
 
 }

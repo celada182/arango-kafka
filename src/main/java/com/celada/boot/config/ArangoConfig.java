@@ -4,7 +4,11 @@ import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDB.Builder;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.AbstractArangoConfiguration;
+import com.celada.adapter.out.arango.PersonArangoRepository;
+import com.celada.adapter.out.arango.PersonRepositoryImpl;
+import com.celada.domain.PersonRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
@@ -14,16 +18,16 @@ public class ArangoConfig extends AbstractArangoConfiguration {
   @Value("${spring.data.arangodb.host:localhost}")
   private String host;
 
-  @Value("spring.data.arangodb.port:8529")
+  @Value("${spring.data.arangodb.port:8529}")
   private int port;
 
-  @Value("spring.data.arangodb.user")
+  @Value("${spring.data.arangodb.user}")
   private String user;
 
-  @Value("spring.data.arangodb.password")
+  @Value("${spring.data.arangodb.password}")
   private String password;
 
-  @Value("spring.data.arangodb.database")
+  @Value("${spring.data.arangodb.database}")
   private String database;
 
   @Override
@@ -37,5 +41,10 @@ public class ArangoConfig extends AbstractArangoConfiguration {
   @Override
   public String database() {
     return database;
+  }
+
+  @Bean
+  public PersonRepository personRepository(PersonArangoRepository repository) {
+    return new PersonRepositoryImpl(repository);
   }
 }

@@ -1,6 +1,6 @@
 package com.celada.adapter.in.kafka;
 
-import com.celada.domain.entity.Model;
+import com.celada.domain.entity.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 
@@ -11,17 +11,17 @@ public class EventMapper {
 
   private ObjectMapper objectMapper;
 
-  public Model execute(String body) throws InvalidEventException, IOException {
+  public Person execute(String body) throws InvalidEventException, IOException {
     if (body == null) {
       return null;
     }
-    return objectMapper.readValue(body, Model.class);
+    return objectMapper.readValue(body, Person.class);
   }
 
-  public String execute(Model model) throws InvalidEventException, IOException {
-    if (model == null) {
+  public String execute(Person person) throws InvalidEventException, IOException {
+    if (person == null) {
       return null;
     }
-    return objectMapper.writeValueAsString(model);
+    return objectMapper.writeValueAsString(person);
   }
 }

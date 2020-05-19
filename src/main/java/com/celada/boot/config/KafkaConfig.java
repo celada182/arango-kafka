@@ -2,7 +2,7 @@ package com.celada.boot.config;
 
 import com.celada.adapter.in.kafka.EventMapper;
 import com.celada.adapter.in.kafka.KafkaConsumer;
-import com.celada.domain.ModelUseCase;
+import com.celada.domain.PersonUseCase;
 import com.celada.kafka.Event;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -114,8 +114,8 @@ public class KafkaConfig {
   }
 
   @Bean
-  public KafkaConsumer replyingKafkaConsumer(ModelUseCase modelUseCase, EventMapper eventMapper) {
-    return new KafkaConsumer(modelUseCase, eventMapper);
+  public KafkaConsumer replyingKafkaConsumer(PersonUseCase personUseCase, EventMapper eventMapper) {
+    return new KafkaConsumer(personUseCase, eventMapper);
   }
 
 }

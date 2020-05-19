@@ -9,17 +9,17 @@ import java.util.Collection;
 
 @Data
 @Builder
-public class Person {
+public class PersonEntity {
 
   @Key
   private String key;
   private String name;
   @Relations(edges = Friend.class, lazy = true)
-  private Collection<Person> friends;
+  private Collection<PersonEntity> friends;
   @Relations(edges = Roommate.class, lazy = true)
-  private Collection<Person> roommates;
+  private Collection<PersonEntity> roommates;
   @Relations(edges = Girlfriend.class, lazy = true)
-  private Collection<Person> girlfriends;
+  private Collection<PersonEntity> girlfriends;
   @Relations(edges = Boyfriend.class, lazy = true)
-  private Collection<Person> boyfriends;
+  private Collection<PersonEntity> boyfriends;
 }

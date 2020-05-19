@@ -1,8 +1,8 @@
 package com.celada.adapter.in.kafka;
 
-import com.celada.domain.ModelUseCase;
-import com.celada.domain.entity.Model;
-import com.celada.domain.exception.ModelException;
+import com.celada.domain.PersonUseCase;
+import com.celada.domain.entity.Person;
+import com.celada.domain.exception.PersonException;
 import com.celada.kafka.Event;
 import com.celada.kafka.EventType;
 import lombok.AllArgsConstructor;
@@ -21,13 +21,13 @@ import java.io.IOException;
 @AllArgsConstructor
 public class KafkaConsumer {
 
-  private final ModelUseCase modelUseCase;
+  private final PersonUseCase personUseCase;
   private final EventMapper eventMapper;
 
   @KafkaListener(topics = "${kafka.topic.request}")
   @SendTo
   public Event listen(ConsumerRecord<String, Event> record, @Header(KafkaHeaders.CORRELATION_ID) byte[] correlation)
-      throws IOException, ModelException {
+      throws IOException, PersonException {
     log.info("Consumer | Event received: {}", record.value());
     record.headers().add(KafkaHeaders.CORRELATION_ID, correlation);
     if (EventType.CREATE.equals(record.value().getType())) {
@@ -39,16 +39,16 @@ public class KafkaConsumer {
     return record.value();
   }
 
-  private void read(ConsumerRecord<String, Event> record) throws IOException, ModelException {
-    Model request = eventMapper.execute(record.value().getBody());
-    Model model = modelUseCase.read(request.getId());
-    record.value().setBody(eventMapper.execute(model));
+  private void read(ConsumerRecord<String, Event> record) throws IOException, PersonException {
+    Person request = eventMapper.execute(record.value().getBody());
+    Person person = personUseCase.read(request.getName());
+    record.value().setBody(eventMapper.execute(person));
     log.info("Sending event: {}", record.value());
   }
 
   private void create(ConsumerRecord<String, Event> record) throws IOException {
-    Model model = eventMapper.execute(record.value().getBody());
-    modelUseCase.create(model);
+    Person person = eventMapper.execute(record.value().getBody());
+    personUseCase.create(person);
     log.info("Sending event: {}", record.value());
   }
 

@@ -2,6 +2,8 @@ package com.celada.adapter.out.arango;
 
 import static java.util.stream.Collectors.toList;
 
+import com.celada.adapter.out.arango.document.PersonEntity;
+import com.celada.adapter.out.arango.document.PersonReducedEntity;
 import com.celada.domain.entity.Person;
 
 import java.util.Collection;
@@ -25,9 +27,9 @@ public class PersonMapper {
         .build();
   }
 
-  private static List<String> execute(Collection<PersonEntity> people) {
+  private static List<String> execute(Collection<PersonReducedEntity> people) {
     return people.stream()
-        .map(PersonEntity::getName)
+        .map(PersonReducedEntity::getName)
         .collect(toList());
   }
 }

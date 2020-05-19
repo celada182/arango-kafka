@@ -1,5 +1,6 @@
 package com.celada.adapter.out.arango;
 
+import com.celada.adapter.out.arango.document.PersonEntity;
 import com.celada.domain.PersonRepository;
 import com.celada.domain.entity.Person;
 import com.celada.domain.exception.PersonException;

@@ -11,6 +11,10 @@ info:
   version: '@project.version@'
   description: '@project.description@'
 
+springdoc:
+  swagger-ui:
+    path: /
+
 spring:
   data:
     arangodb:

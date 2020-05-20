@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,12 +22,13 @@ import java.util.concurrent.ExecutionException;
 @RestController
 @Slf4j
 @AllArgsConstructor
+@RequestMapping("/person")
 public class PersonController {
 
   private RestUseCase restUseCase;
 
   @ResponseBody
-  @PostMapping(value = "/person",
+  @PostMapping(value = "/",
       produces = MediaType.APPLICATION_JSON_VALUE,
       consumes = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> create(@RequestBody Person person) {
@@ -40,9 +42,8 @@ public class PersonController {
   }
 
   @ResponseBody
-  @GetMapping(value = "/person/{key}",
-      produces = MediaType.APPLICATION_JSON_VALUE,
-      consumes = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/{key}",
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Person> read(@PathVariable String key) {
     try {
       Person result = restUseCase.read(key);

@@ -4,8 +4,12 @@ import com.arangodb.ArangoDB;
 import com.arangodb.ArangoDB.Builder;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;
 import com.arangodb.springframework.config.AbstractArangoConfiguration;
-import com.celada.adapter.out.arango.PersonArangoRepository;
 import com.celada.adapter.out.arango.PersonRepositoryImpl;
+import com.celada.adapter.out.arango.repository.BoyfriendArangoRepository;
+import com.celada.adapter.out.arango.repository.FriendArangoRepository;
+import com.celada.adapter.out.arango.repository.GirlfriendArangoRepository;
+import com.celada.adapter.out.arango.repository.PersonArangoRepository;
+import com.celada.adapter.out.arango.repository.RoommateArangoRepository;
 import com.celada.domain.PersonRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +48,19 @@ public class ArangoConfig extends AbstractArangoConfiguration {
   }
 
   @Bean
-  public PersonRepository personRepository(PersonArangoRepository repository) {
-    return new PersonRepositoryImpl(repository);
+  public PersonRepository personRepository(
+      PersonArangoRepository people,
+      FriendArangoRepository friends,
+      RoommateArangoRepository roomates,
+      BoyfriendArangoRepository boyfriends,
+      GirlfriendArangoRepository girlfriends
+  ) {
+    return PersonRepositoryImpl.builder()
+        .people(people)
+        .friends(friends)
+        .roommates(roomates)
+        .boyfriends(boyfriends)
+        .girlfriends(girlfriends)
+        .build();
   }
 }

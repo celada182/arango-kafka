@@ -7,7 +7,7 @@ import com.celada.adapter.out.arango.document.PersonEntity;
 import lombok.Builder;
 import lombok.Data;
 
-@Edge
+@Edge("friend")
 @Data
 @Builder
 public class Friend {
